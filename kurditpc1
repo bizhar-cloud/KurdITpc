@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KurdITpc - Ultra Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;500;800&display=swap');
+
+        :root {
+            --gold: #ffcc00;
+            --neon-blue: #00d4ff;
+            --fb-blue: #1877F2;
+            --wa-green: #25D366;
+            --ig-pink: #ff0055;
+            --tt-cyan: #00f2ea;
+            --tt-pink: #ff0050;
+            --korek-neon: #fff200;
+        }
+
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            font-family: 'Noto Sans Arabic', sans-serif;
+            background: #000; overflow-x: hidden;
+        }
+
+        #bg-video {
+            position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%;
+            z-index: -2; filter: brightness(0.2); object-fit: cover;
+        }
+
+        .container {
+            position: relative; z-index: 1;
+            max-width: 400px; margin: 20px auto;
+            background: rgba(15, 15, 20, 0.88);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 45px;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        /* --- Animations --- */
+        @keyframes rotate-orbit { 100% { transform: rotate(360deg); } }
+        @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes shine-pulse {
+            0% { background-position: 0% center; transform: scale(1); }
+            100% { background-position: 200% center; transform: scale(1); }
+        }
+        @keyframes fb-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1) rotate(5deg); } }
+        @keyframes tt-glitch { 0% { text-shadow: 2px 0 var(--tt-cyan), -2px 0 var(--tt-pink); } 100% { text-shadow: -2px 0 var(--tt-cyan), 2px 0 var(--tt-pink); } }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-5px) scale(1.02); }
+        }
+
+        @keyframes phone-vibrate {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-10deg); }
+            100% { transform: rotate(0deg); }
+        }
+        @keyframes korek-pulse {
+            0% { box-shadow: 0 0 10px rgba(255, 242, 0, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(255, 242, 0, 0.5); }
+            100% { box-shadow: 0 0 10px rgba(255, 242, 0, 0.2); }
+        }
+
+        .logo-wrapper { position: relative; width: 135px; height: 135px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; }
+        .logo-ring { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 3px solid transparent; border-top: 3px solid var(--gold); border-bottom: 3px solid var(--gold); animation: rotate-orbit 3s linear infinite; }
+        .logo-img { width: 100px; height: 100px; border-radius: 50%; z-index: 5; animation: breathe 3s ease-in-out infinite; }
+
+        .services-container { background: rgba(255, 255, 255, 0.04); border-radius: 25px; padding: 20px 15px; margin-bottom: 25px; border-right: 4px solid var(--gold); text-align: right; }
+        .service-item { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; color: white; font-size: 13px; font-weight: 500; }
+        .service-item i { color: var(--gold); font-size: 14px; }
+        .order-btn-new { display: flex; align-items: center; justify-content: center; gap: 10px; background: linear-gradient(135deg, var(--gold) 0%, #ff9900 100%); color: #000; text-decoration: none; font-weight: 800; font-size: 16px; padding: 14px; border-radius: 15px; margin-top: 15px; animation: float 3s ease-in-out infinite; }
+
+        .ads-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .ad-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 15px; padding: 12px 8px; transition: 0.3s; }
+        .ad-box i { font-size: 20px; color: var(--gold); margin-bottom: 8px; display: block; }
+        .ad-box h4 { color: #fff; margin: 0; font-size: 10px; font-weight: 800; }
+        .ad-box p { color: #aaa; margin: 4px 0 0; font-size: 8.5px; line-height: 1.3; }
+
+        .social-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); padding: 15px 5px; border-radius: 18px; color: white; text-decoration: none; font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 5px; transition: 0.3s; }
+        .btn i { font-size: 26px; }
+        .btn:hover { border-color: var(--gold); background: rgba(255,255,255,0.1); }
+
+        .btn-korek {
+            grid-column: span 2;
+            background: rgba(255, 242, 0, 0.05);
+            border: 2px solid var(--korek-neon) !important;
+            color: var(--korek-neon) !important;
+            flex-direction: row !important;
+            font-weight: 800; font-size: 18px !important;
+            padding: 18px !important; border-radius: 25px !important;
+            justify-content: center; backdrop-filter: blur(10px);
+            animation: korek-pulse 2s infinite ease-in-out;
+            margin-bottom: 5px;
+        }
+        .btn-korek i { 
+            font-size: 24px !important; 
+            margin-left: 12px; 
+            animation: phone-vibrate 0.6s infinite linear;
+            filter: drop-shadow(0 0 8px var(--korek-neon));
+        }
+        .btn-korek:hover {
+            background: var(--korek-neon) !important;
+            color: #000 !important;
+            box-shadow: 0 0 35px var(--korek-neon);
+        }
+
+        .btn-fib { grid-column: span 2; background: linear-gradient(90deg, #002d72, #00d4ff, #002d72); background-size: 200% auto; flex-direction: row; font-weight: 800; border: 1px solid var(--neon-blue); animation: shine-pulse 4s infinite linear; justify-content: center; padding: 16px; margin-top: 5px; }
+
+        .fa-facebook { color: var(--fb-blue); animation: fb-pulse 3s infinite ease-in-out; }
+        .fa-tiktok { animation: tt-glitch 0.3s infinite alternate; }
+        .fa-whatsapp { color: var(--wa-green); }
+        .fa-instagram { color: var(--ig-pink); }
+    </style>
+</head>
+<body>
+
+<video autoplay muted loop playsinline id="bg-video">
+  <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-blue-and-purple-neon-lines-34413-large.mp4" type="video/mp4">
+</video>
+
+<div class="container">
+    <div class="logo-wrapper">
+        <div class="logo-ring"></div>
+        <img src="https://i.ibb.co/rGJFqTm5/logo.png" class="logo-img" alt="Logo">
+    </div>
+
+    <h2 style="color:var(--gold); margin:0 0 15px 0; font-weight:800; font-size: 30px;">KurdITpc</h2>
+
+    <div class="services-container">
+        <div class="service-item"><i class="fa-solid fa-circle-check"></i> <span>کڕین و فرۆتنا هەمی جۆرە لاپتۆپ و کۆمپیوتەران</span></div>
+        <div class="service-item"><i class="fa-solid fa-circle-check"></i> <span>بێلدکرنا کۆمپیوتەرێن گەیمینگ و دیزاینێ</span></div>
+        <div class="service-item"><i class="fa-solid fa-circle-check"></i> <span>چارەکرنا ئاریشەیێن سۆفتوێر و هاردوێر</span></div>
+        <a href="https://wa.me/9647512777475" class="order-btn-new">
+            <i class="fa-solid fa-cart-shopping"></i> نوکە داخوازیێ بکە
+        </a>
+    </div>
+
+    <div class="ads-grid">
+        <div class="ad-box"><i class="fa-solid fa-gamepad"></i><h4>GAMING & PC</h4><p>بهێزترین ئامیرێن گەیمینگ</p></div>
+        <div class="ad-box"><i class="fa-solid fa-laptop-code"></i><h4>PROGRAMMING</h4><p>پڕۆگرامکرن و سۆفتوێر</p></div>
+        <div class="ad-box"><i class="fa-solid fa-tools"></i><h4>MAINTENANCE</h4><p>چارەکرنا کێشەیێن تەکنیکی</p></div>
+        <div class="ad-box"><i class="fa-solid fa-box-open"></i><h4>HARDWARE</h4><p>باشترین پارچێن ڕەسەن</p></div>
+    </div>
+
+    <div class="social-grid">
+        <a href="tel:+9647512777475" class="btn btn-korek">
+            <i class="fa-solid fa-phone-flip"></i>
+            <span style="direction: ltr;">+964 751 277 7475</span>
+        </a>
+        
+        <a href="https://wa.me/9647512777475" class="btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        <a href="https://instagram.com/kurditpc" class="btn"><i class="fa-brands fa-instagram"></i> Instagram</a>
+        <a href="https://www.facebook.com/KurdITPC" target="_blank" class="btn"><i class="fa-brands fa-facebook"></i> Facebook</a>
+        <a href="https://tiktok.com/@kurditpc" target="_blank" class="btn"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+        <a href="https://snapchat.com/t/5MoeKF3o" target="_blank" class="btn"><i class="fa-brands fa-snapchat"></i> Snapchat</a>
+        <a href="#" class="btn"><i class="fa-solid fa-map-location-dot"></i> ناڤنیشان</a>
+
+        <a href="https://ugc.production.linktr.ee/e6da855b-81a3-4ed7-b01d-6064c9dd75c1_KURDITPC.pdf" target="_blank" class="btn btn-fib">
+            <i class="fa-solid fa-credit-card"></i> &nbsp; پارەدان ب ڕێکا FIB
+        </a>
+    </div>
+
+    <p style="margin-top:25px; font-size:10px; color:#aaa; line-height: 1.6;">
+        Development By: Bizhar Rasheed <br> 
+        KURDITPC | 2026 ©
+    </p>
+</div>
+
+</body>
+</html>
