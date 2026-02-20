@@ -2,8 +2,10 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>KurdITpc - Ultra Premium</title>
+    <link rel="apple-touch-icon" href="https://i.ibb.co/rGJFqTm5/logo.png">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;500;800&display=swap');
@@ -23,6 +25,7 @@
             margin: 0; padding: 0; height: 100%;
             font-family: 'Noto Sans Arabic', sans-serif;
             background: #000; overflow-x: hidden;
+            touch-action: manipulation;
         }
 
         #bg-video {
@@ -88,24 +91,49 @@
         .btn i { font-size: 26px; }
         .btn:hover { border-color: var(--gold); background: rgba(255,255,255,0.1); }
 
+        /* --- Korek Button with Brand Name Swap --- */
         .btn-korek {
             grid-column: span 2;
             background: rgba(255, 242, 0, 0.05);
             border: 2px solid var(--korek-neon) !important;
             color: var(--korek-neon) !important;
-            flex-direction: row !important;
-            font-weight: 800; font-size: 18px !important;
             padding: 18px !important; border-radius: 25px !important;
-            justify-content: center; backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
             animation: korek-pulse 2s infinite ease-in-out;
             margin-bottom: 5px;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+            text-decoration: none;
         }
+
+        .btn-korek .brand-overlay {
+            display: none;
+            font-weight: 800; font-size: 20px;
+            letter-spacing: 1px;
+        }
+
+        .btn-korek .phone-display {
+            display: flex; align-items: center;
+            font-weight: 800; font-size: 18px;
+        }
+
+        /* Hover & Touch Effects */
+        .btn-korek:hover .phone-display, 
+        .btn-korek:active .phone-display {
+            display: none;
+        }
+
+        .btn-korek:hover .brand-overlay, 
+        .btn-korek:active .brand-overlay {
+            display: block;
+        }
+
         .btn-korek i { 
             font-size: 24px !important; 
             margin-left: 12px; 
             animation: phone-vibrate 0.6s infinite linear;
-            filter: drop-shadow(0 0 8px var(--korek-neon));
         }
+
         .btn-korek:hover {
             background: var(--korek-neon) !important;
             color: #000 !important;
@@ -152,8 +180,11 @@
 
     <div class="social-grid">
         <a href="tel:+9647512777475" class="btn btn-korek">
-            <i class="fa-solid fa-phone-flip"></i>
-            <span style="direction: ltr;">+964 751 277 7475</span>
+            <div class="phone-display">
+                <i class="fa-solid fa-phone-flip"></i>
+                <span style="direction: ltr;">+964 751 277 7475</span>
+            </div>
+            <div class="brand-overlay">KurdITpc</div>
         </a>
         
         <a href="https://wa.me/9647512777475" class="btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
@@ -161,10 +192,10 @@
         <a href="https://www.facebook.com/KurdITPC" target="_blank" class="btn"><i class="fa-brands fa-facebook"></i> Facebook</a>
         <a href="https://tiktok.com/@kurditpc" target="_blank" class="btn"><i class="fa-brands fa-tiktok"></i> TikTok</a>
         <a href="https://snapchat.com/t/5MoeKF3o" target="_blank" class="btn"><i class="fa-brands fa-snapchat"></i> Snapchat</a>
-        <a href="#" class="btn"><i class="fa-solid fa-map-location-dot"></i> ناڤنیشان</a>
+        <a href="https://maps.app.goo.gl/NKFqwiNy9wCwNoP17?g_st=ic" target="_blank" class="btn"><i class="fa-solid fa-map-location-dot"></i> ناڤنیشان</a>
 
         <a href="https://ugc.production.linktr.ee/e6da855b-81a3-4ed7-b01d-6064c9dd75c1_KURDITPC.pdf" target="_blank" class="btn btn-fib">
-            <i class="fa-solid fa-credit-card"></i> &nbsp; پارەدان ب ڕێکا FIB
+            <i class="fa-solid fa-credit-card"></i>   پارەدان ب ڕێکا FIB
         </a>
     </div>
 
