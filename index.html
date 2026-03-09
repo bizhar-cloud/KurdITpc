@@ -44,6 +44,39 @@
             text-align: center;
         }
 
+        /* --- ئیفێکتێ بروسکەیا نەرم (Soft Shimmer Sweep) --- */
+        .btn-sweep {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-sweep::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -150%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                115deg, 
+                transparent 0%, 
+                transparent 40%, 
+                rgba(255, 255, 255, 0.35) 50%, 
+                transparent 60%, 
+                transparent 100%
+            );
+            pointer-events: none;
+        }
+
+        .animate-sweep::after {
+            animation: sweep-effect 0.8s ease-out forwards;
+        }
+
+        @keyframes sweep-effect {
+            0% { left: -150%; }
+            100% { left: 150%; }
+        }
+
         /* --- Animations --- */
         @keyframes rotate-orbit { 100% { transform: rotate(360deg); } }
         @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
@@ -71,7 +104,6 @@
             100% { box-shadow: 0 0 10px rgba(255, 242, 0, 0.2); }
         }
 
-        /* ئیفێکتێ گوهۆرینا ژمارێ */
         .fade-effect {
             transition: opacity 0.5s ease-in-out;
         }
@@ -156,7 +188,7 @@
         <div class="service-item"><i class="fa-solid fa-circle-check"></i> <span>کڕین و فرۆتنا هەمی جۆرە لاپتۆپ و کۆمپیوتەران</span></div>
         <div class="service-item"><i class="fa-solid fa-circle-check"></i> <span>بێلدکرنا کۆمپیوتەرێن گەیمینگ و دیزاینێ</span></div>
         <div class="service-item"><i class="fa-solid fa-circle-check"></i> <span>چارەکرنا ئاریشەیێن سۆفتوێر و هاردوێر</span></div>
-        <a href="https://wa.me/9647512777475" id="order-btn" class="order-btn-new">
+        <a href="https://wa.me/9647512777475" id="order-btn" class="order-btn-new btn-sweep">
             <i class="fa-solid fa-cart-shopping"></i> نوکە داخوازیێ بکە
         </a>
     </div>
@@ -169,14 +201,14 @@
     </div>
 
     <div class="social-grid">
-        <a href="tel:+9647512777475" id="contact-link" class="btn btn-korek">
+        <a href="tel:+9647512777475" id="contact-link" class="btn btn-korek btn-sweep">
             <div class="phone-display fade-effect" id="contact-container">
                 <i class="fa-solid fa-phone-flip"></i>
                 <span id="contact-text" style="direction: ltr; margin-right: 5px;">KurdITpc | +9647512777475</span>
             </div>
         </a>
         
-        <a href="https://wa.me/9647512777475" id="wa-link" class="btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        <a href="https://wa.me/9647512777475" id="wa-link" class="btn btn-sweep"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
         <a href="https://instagram.com/kurditpc" class="btn"><i class="fa-brands fa-instagram"></i> Instagram</a>
         <a href="https://www.facebook.com/KurdITPC" target="_blank" class="btn"><i class="fa-brands fa-facebook"></i> Facebook</a>
         <a href="https://tiktok.com/@kurditpc" target="_blank" class="btn"><i class="fa-brands fa-tiktok"></i> TikTok</a>
@@ -204,32 +236,35 @@
     const container = document.getElementById('contact-container');
     const textSpan = document.getElementById('contact-text');
     const link = document.getElementById('contact-link');
-    const waLink = document.getElementById('wa-link'); // لێنکێ واتسئاپێ یێ خوارێ
-    const orderBtn = document.getElementById('order-btn'); // دوکمەیا داخوازیێ
+    const waLink = document.getElementById('wa-link'); 
+    const orderBtn = document.getElementById('order-btn'); 
 
     setInterval(() => {
-        // ئامادەکاری بۆ Fade Out
         container.classList.add('fade-out');
 
         setTimeout(() => {
-            // گوهۆرینا زانیاریان پشتی دەق بەرزە دبیت
             currentIndex = (currentIndex + 1) % contacts.length;
             
-            // نیشاندانا ناڤ و ژمارێ
             textSpan.innerText = contacts[currentIndex].label;
-            
-            // گوهۆرینا لێنکێ تەلەفۆنێ
             link.href = "tel:" + contacts[currentIndex].num;
-            
-            // گوهۆرینا لێنکێ واتسئاپێ بۆ هەردو جهێن هەین
             waLink.href = contacts[currentIndex].wa;
             orderBtn.href = contacts[currentIndex].wa;
 
-            // ڤەگەراندنا دەقی (Fade In)
-            container.classList.remove('fade-out');
-        }, 500); // نیڤ چرکە بۆ بەرزەبوونێ
+            // دەستپێکرنا ئیفێکتێ شەپۆلا ڕوناهیێ (Soft Sweep)
+            link.classList.remove('animate-sweep');
+            waLink.classList.remove('animate-sweep');
+            orderBtn.classList.remove('animate-sweep');
+            
+            void link.offsetWidth; // Force Reflow
 
-    }, 4000); // هەر ٤ چرکە جارەکێ
+            link.classList.add('animate-sweep');
+            waLink.classList.add('animate-sweep');
+            orderBtn.classList.add('animate-sweep');
+
+            container.classList.remove('fade-out');
+        }, 500);
+
+    }, 4000);
 </script>
 
 </body>
