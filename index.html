@@ -44,7 +44,6 @@
             text-align: center;
         }
 
-        /* --- ئیفێکتێ بروسکەیا نەرم (Soft Shimmer Sweep) --- */
         .btn-sweep {
             position: relative;
             overflow: hidden;
@@ -77,7 +76,6 @@
             100% { left: 150%; }
         }
 
-        /* --- Animations --- */
         @keyframes rotate-orbit { 100% { transform: rotate(360deg); } }
         @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         @keyframes shine-pulse {
@@ -105,10 +103,11 @@
         }
 
         .fade-effect {
-            transition: opacity 0.5s ease-in-out;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
         }
         .fade-out {
             opacity: 0;
+            transform: translateY(5px);
         }
 
         .logo-wrapper { position: relative; width: 135px; height: 135px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; }
@@ -128,7 +127,7 @@
 
         .social-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         .btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); padding: 15px 5px; border-radius: 18px; color: white; text-decoration: none; font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 5px; transition: 0.3s; }
-        .btn i { font-size: 26px; }
+        .btn i { font-size: 26px; transition: 0.3s; }
         .btn:hover { border-color: var(--gold); background: rgba(255,255,255,0.1); }
 
         .btn-korek {
@@ -168,6 +167,9 @@
         .fa-tiktok { animation: tt-glitch 0.3s infinite alternate; }
         .fa-whatsapp { color: var(--wa-green); }
         .fa-instagram { color: var(--ig-pink); }
+        
+        /* شێوازێ ناڤێ واتسئاپی */
+        #wa-text { font-weight: 600; margin-top: 2px; }
     </style>
 </head>
 <body>
@@ -208,7 +210,11 @@
             </div>
         </a>
         
-        <a href="https://wa.me/9647512777475" id="wa-link" class="btn btn-sweep"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        <a href="https://wa.me/9647512777475" id="wa-link" class="btn btn-sweep">
+            <i class="fa-brands fa-whatsapp fade-effect" id="wa-icon"></i> 
+            <span id="wa-text" class="fade-effect">WhatsApp</span>
+        </a>
+
         <a href="https://instagram.com/kurditpc" class="btn"><i class="fa-brands fa-instagram"></i> Instagram</a>
         <a href="https://www.facebook.com/KurdITPC" target="_blank" class="btn"><i class="fa-brands fa-facebook"></i> Facebook</a>
         <a href="https://tiktok.com/@kurditpc" target="_blank" class="btn"><i class="fa-brands fa-tiktok"></i> TikTok</a>
@@ -216,7 +222,7 @@
         <a href="https://maps.app.goo.gl/NKFqwiNy9wCwNoP17?g_st=ic" target="_blank" class="btn"><i class="fa-solid fa-map-location-dot"></i> ناڤنیشان</a>
 
         <a href="https://ugc.production.linktr.ee/e6da855b-81a3-4ed7-b01d-6064c9dd75c1_KURDITPC.pdf" target="_blank" class="btn btn-fib">
-            <i class="fa-solid fa-credit-card"></i>   پارەدان ب ڕێکا FIB
+            <i class="fa-solid fa-credit-card"></i> &nbsp; پارەدان ب ڕێکا FIB
         </a>
     </div>
 
@@ -228,8 +234,18 @@
 
 <script>
     const contacts = [
-        { label: "KurdITpc | +9647512777475", num: "+9647512777475", wa: "https://wa.me/9647512777475" },
-        { label: "Abdullah | +9647504595665", num: "+9647504595665", wa: "https://wa.me/9647504595665" }
+        { 
+            name: "KurdITpc", 
+            label: "KurdITpc | +9647512777475", 
+            num: "+9647512777475", 
+            wa: "https://wa.me/9647512777475" 
+        },
+        { 
+            name: "Abdulla", 
+            label: "Abdulla | +9647504595665", 
+            num: "+9647504595665", 
+            wa: "https://wa.me/9647504595665" 
+        }
     ];
 
     let currentIndex = 0;
@@ -237,31 +253,43 @@
     const textSpan = document.getElementById('contact-text');
     const link = document.getElementById('contact-link');
     const waLink = document.getElementById('wa-link'); 
+    const waText = document.getElementById('wa-text');
+    const waIcon = document.getElementById('wa-icon');
     const orderBtn = document.getElementById('order-btn'); 
 
     setInterval(() => {
+        // فێدکرنا دەقێ تەلەفۆنێ و واتسئاپی
         container.classList.add('fade-out');
+        waText.classList.add('fade-out');
+        waIcon.classList.add('fade-out');
 
         setTimeout(() => {
             currentIndex = (currentIndex + 1) % contacts.length;
             
+            // گوهۆڕینا داتایان
             textSpan.innerText = contacts[currentIndex].label;
             link.href = "tel:" + contacts[currentIndex].num;
             waLink.href = contacts[currentIndex].wa;
             orderBtn.href = contacts[currentIndex].wa;
+            
+            // گوهۆڕینا ناڤێ لایێ واتسئاپی (خەفیف)
+            waText.innerText = "WA: " + contacts[currentIndex].name;
 
             // دەستپێکرنا ئیفێکتێ شەپۆلا ڕوناهیێ (Soft Sweep)
             link.classList.remove('animate-sweep');
             waLink.classList.remove('animate-sweep');
             orderBtn.classList.remove('animate-sweep');
             
-            void link.offsetWidth; // Force Reflow
+            void link.offsetWidth; 
 
             link.classList.add('animate-sweep');
             waLink.classList.add('animate-sweep');
             orderBtn.classList.add('animate-sweep');
 
+            // لادانا فێدکرنێ
             container.classList.remove('fade-out');
+            waText.classList.remove('fade-out');
+            waIcon.classList.remove('fade-out');
         }, 500);
 
     }, 4000);
