@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Server Unavailable</title>
+    <title>Server Disconnected</title>
     <style>
         body, html {
             height: 100%;
@@ -21,79 +21,93 @@
             background-image: url('https://i.postimg.cc/nrwBbmmk/IMG-0113.jpg');
             background-size: cover;
             background-position: center;
-            filter: blur(8px); /* بلور ل ڤێرێ هاتە کێمکرن بۆ 8px */
+            filter: blur(8px);
             z-index: -2;
         }
 
         .overlay {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(0, 0, 0, 0.6); 
             z-index: -1;
         }
 
         .container {
-            background-color: rgba(0, 0, 0, 0.5); 
-            padding: 40px;
-            border-radius: 12px;
+            background: rgba(20, 20, 20, 0.6); 
+            padding: 45px 35px;
+            border-radius: 16px;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            max-width: 450px;
             border-top: 5px solid #e74c3c;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
             color: #ffffff;
             z-index: 1; 
-            backdrop-filter: blur(4px); /* ئەڤە هندەک بلور ددەتە بۆکسێ نڤیسینێ بخۆ دا جانتر لێ بهێت */
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .icon {
-            font-size: 55px;
-            margin-bottom: 15px;
+            font-size: 60px;
+            margin-bottom: 10px;
             animation: pulse 2s infinite;
         }
 
         h1 {
             color: #e74c3c;
-            margin-bottom: 15px;
-            font-size: 28px;
+            margin-bottom: 10px;
+            font-size: 26px;
+            letter-spacing: 1px;
         }
 
         p {
             line-height: 1.6;
-            color: #cccccc;
+            color: #dcdcdc;
             font-size: 16px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         strong {
             color: #ffffff;
+            font-weight: 600;
         }
 
         button {
             background-color: #e74c3c;
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
+            padding: 12px 28px;
+            border-radius: 8px;
             font-size: 16px;
             cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
         }
 
         button:hover {
             background-color: #c0392b;
+            box-shadow: 0 6px 20px rgba(192, 57, 43, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
         }
 
         #statusResult {
-            margin-top: 15px;
+            margin-top: 20px;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 600;
             height: 20px;
         }
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+            50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
     </style>
@@ -105,12 +119,11 @@
 
     <div class="container">
         <div class="icon">⚠️</div>
-        <h1>Service Unavailable</h1>
+        <h1>Server Disconnected</h1>
         <p id="message">
-            <strong>sorry!</strong> The server is currently not working.<br><br>
-            The service is currently offline. Please complete the payment of the <strong>3.99$</strong> monthly subscription fee to renew your account and reactivate the server.
+            <strong>Sorry!</strong> The server is currently disconnected and not working.<br>Please try again later.
         </p>
-        <button id="checkStatusBtn">Check Server Status</button>
+        <button id="checkStatusBtn">Try Again</button>
         <p id="statusResult"></p>
     </div>
     
@@ -120,17 +133,19 @@
             const button = document.getElementById('checkStatusBtn');
             
             button.disabled = true;
-            button.style.opacity = "0.5";
+            button.style.opacity = "0.7";
+            button.innerText = "Checking...";
             
             statusResult.innerText = "Checking server connection...";
-            statusResult.style.color = "#f1c40f"; 
+            statusResult.style.color = "#f39c12"; 
 
             setTimeout(function() {
-                statusResult.innerText = "Error: Server is still offline. Please try again later.";
+                statusResult.innerText = "Connection failed. Server is still offline.";
                 statusResult.style.color = "#e74c3c"; 
                 
                 button.disabled = false;
                 button.style.opacity = "1";
+                button.innerText = "Try Again";
             }, 2000);
         });
     </script>
